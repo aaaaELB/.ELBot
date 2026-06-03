@@ -1,0 +1,2 @@
+# .ELBot
+Discord Bot
