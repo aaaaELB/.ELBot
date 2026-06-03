@@ -2,7 +2,7 @@
 .venv/
 
 # Arquivo com tokens e chaves secretas
-.token
+dados.json
 
 # Arquivos temporários do Python
 __pycache__/

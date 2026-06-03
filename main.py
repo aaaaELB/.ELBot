@@ -1,12 +1,12 @@
 import discord
 from discord import app_commands
-import token
+import json
+
+with open('dados.json') as f:
+    token = json.load(f)['token']
 
 intents = discord.Intents.default()
-intents.message_content = True # Permissao para ler o chat
-intents.members = True # Permissao para ler os membros do servidor
 client = discord.Client(command_prefix = ".", intents=intents, status = discord.Status.idle, activity = discord.Game("ELBot em desenvolvimento"))
-
 
 guild = discord.Object(id=1362952956684668988) #código do meu servidor para teste interno
 
@@ -18,7 +18,7 @@ class dependencias(discord.Client):
 
     async def setup_hook(self):
         await self.tree.sync(guild=guild) # None = global / guild = server específico
-        print('\n Comandos sincronizados\n')
+        print('\n -- Comandos sincronizados\n')
 
 client = dependencias()
 
@@ -26,10 +26,6 @@ client = dependencias()
 # evento onready
 @client.event
 async def on_ready():
-    if intents.message_content == True:
-        print("Permissão para ler o chat")
-    if intents.members == True:
-        print("Permissão para ler membros")
     print(f'\nLogged on as {client.user}\n')
 
 
@@ -60,4 +56,4 @@ async def teste(interaction: discord.Interaction):
     return
 
 
-client.run(token.TOKEN)
+client.run(token)
