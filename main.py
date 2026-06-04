@@ -8,7 +8,7 @@ with open('dados.json') as f:
 intents = discord.Intents.default()
 client = discord.Client(command_prefix = ".", intents=intents, status = discord.Status.idle, activity = discord.Game("ELBot em desenvolvimento"))
 
-guild = discord.Object(id=1362952956684668988) #código do meu servidor para teste interno
+guild = discord.Object(id=1313924353926365237) #código do meu servidor para teste interno
 
 class dependencias(discord.Client):
     def __init__(self):
@@ -39,6 +39,13 @@ async def on_message(message):
         return
 
 
+'''
+@client.event
+async def on_typing(channel, user, when):
+    await channel.send('Alguém está digitando...')
+    return
+'''
+
 # comandos de barra daqui pra baixo
 @client.tree.command(name="ping", description="Responde com pong!")
 async def ping(interaction: discord.Interaction):
@@ -55,5 +62,18 @@ async def teste(interaction: discord.Interaction):
     await interaction.response.send_message(f'{interaction.user.mention} teste')
     return
 
+@client.tree.command(name="join", description="join em call")
+async def join(interaction: discord.Interaction):
+    if interaction.user.voice is None: #se o usuário não estiver em um canal
+        await interaction.response.send_message("Você não está em um canal de voz.")
+        return
+
+    if interaction.guild.voice_client is not None: #se o bot já estiver em um canal
+        await interaction.response.send_message("Já estou conectado a um canal de voz.")
+        return
+
+    await interaction.response.send_message("Conectado!")
+    await interaction.user.voice.channel.connect()
+    return
 
 client.run(token)
