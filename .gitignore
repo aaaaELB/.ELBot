@@ -1,9 +1,12 @@
 # Ambiente virtual do Python
 .venv/
 
-# Arquivo com tokens e chaves secretas
+# Arquivos com tokens e chaves secretas
+.env
 dados.json
 
 # Arquivos temporários do Python
 __pycache__/
 *.pyc
+
+requirements.txt

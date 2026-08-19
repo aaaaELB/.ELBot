@@ -1,8 +1,7 @@
-import discord, json
+import discord, os
 from discord import app_commands
 
-with open('dados.json') as f:
-    token = json.load(f)['token']
+token = os.getenv('token')
 
 intents = discord.Intents.default()
 client = discord.Client(command_prefix = ".", intents=intents, status = discord.Status.idle, activity = discord.Game("ELBot em desenvolvimento"))
@@ -91,6 +90,7 @@ async def leave(interaction: discord.Interaction):
     await interaction.guild.voice_client.disconnect()
     return
 
+"""
 @client.tree.command(name="play", description="toca um arquivo de áudio", guild=enclaves)
 async def play(interaction: discord.Interaction):
     if interaction.guild.voice_client is None: #se o bot não estiver em um canal
@@ -101,5 +101,6 @@ async def play(interaction: discord.Interaction):
     interaction.guild.voice_client.play(audio_source)
     await interaction.response.send_message("Tocando áudio!")
     return
+"""
 
 client.run(token)
